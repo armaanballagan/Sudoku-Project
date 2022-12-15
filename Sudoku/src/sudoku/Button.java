@@ -8,6 +8,7 @@ package sudoku;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
 /**
@@ -15,17 +16,21 @@ import javax.swing.JButton;
  * @author a.ballagan
  */
 public class Button extends JButton{
-    boolean claimed;
-    int owner;
+    boolean showNumber;
+    int number;
             
     public Button() {
-        this.setBackground(Color.white);
+        this.setBackground(Color.WHITE);
+        this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        
        Dimension dmnsn = new Dimension(100,100);
        this.setPreferredSize(dmnsn);
+       
        Font font = new Font(Font.SANS_SERIF, Font.BOLD, 48);
        this.setFont(font);
-       claimed = false;
-       owner = -1;
+       
+       showNumber = false;
+       
     }
     
     public void claim(int player) {
