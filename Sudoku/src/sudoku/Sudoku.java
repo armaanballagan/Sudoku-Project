@@ -20,7 +20,7 @@ import javax.swing.JPanel;
  */
 public class Sudoku extends JFrame {
     //TicTacToe "is a" JFrame
-    static int numberPadNumber = 9;
+    static int numberPadNumbers = 9;
     static int Rows = 9;
     static int Cols = 9;
     static Button[][] buttonGrid = new Button[Rows][Cols];
@@ -32,7 +32,7 @@ public class Sudoku extends JFrame {
     JLabel squareMessage;
     static boolean t = true;
     static boolean f = false;
-    static int[][] allValues = {{7,5,3,2,8,4,1,6,9},
+    static int[][] actualValues = {{7,5,3,2,8,4,1,6,9},
                                 {2,1,8,3,9,6,7,5,4},
                                 {4,9,6,1,5,7,8,2,3},
                                 {6,4,9,8,3,1,2,7,5},
@@ -62,15 +62,18 @@ public class Sudoku extends JFrame {
         JPanel messagePanel = new JPanel();
         message = new JLabel("Sudoku");
         message.setFont(new Font(Font.SERIF, Font.ITALIC, 36));
-        messagePanel.add(message, BorderLayout.NORTH);
-        this.add(messagePanel);
+        messagePanel.add(message);
+        this.add(messagePanel, BorderLayout.NORTH);
         
-        GridLayout numberPadLayoutManager = new GridLayout(squareRows,squareCols);
+        GridLayout numberPadLayoutManager = new GridLayout(numberPadNumbers,1);
         JPanel numberPadPanel = new JPanel(numberPadLayoutManager);
-        for(int n = 1; n <= numberPadNumber; n++){
-            //NumberPadButton b = new NumberPadButton(n);
+        for(int n = 1; n <= numberPadNumbers; n++){
+            NumberPadButton b = new NumberPadButton();
+            b.numberPadNumber = n;
+            b.setText(Integer.toString(b.numberPadNumber));
             TileClickHandler tch = new TileClickHandler(this);
-            //b.addActionListener(tch);
+            b.addActionListener(tch);
+            numberPadPanel.add(b);
         }
         
         
@@ -94,8 +97,9 @@ public class Sudoku extends JFrame {
                     Button b = new Button();
                     int rowNum = r*3 + i;
                     int colNum = c*3 + j;
-                    b.actualNumber = allValues[rowNum][colNum];
+                    b.actualNumber = actualValues[rowNum][colNum];
                     b.showNumber = givenValues[rowNum][colNum];
+                    b.showInitialValues();
                     TileClickHandler tch = new TileClickHandler(this);
                     b.addActionListener(tch);
                     buttonGrid[rowNum][colNum] = b;
@@ -113,11 +117,25 @@ public class Sudoku extends JFrame {
 
     
     public int getCurrentNumber(){
-        currentNumber = 99;
         return currentNumber;
             }
         
-
+    public boolean checkWin(){
+        boolean gameWin = false;
+         for(int r = 0; r < Rows; r++) {
+             for(int c = 0; c < Cols; c++) {
+                if (buttonGrid[r][c].displayNumber == actualValues[r][c]){
+                    
+                }
+                    
+            }
+             
+         }
+            
+        
+        
+        return gameWin;
+    }
         
     /*
     public int checkWin() {

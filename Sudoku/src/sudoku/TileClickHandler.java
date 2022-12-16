@@ -26,9 +26,20 @@ public class TileClickHandler implements ActionListener {
     
     @Override
     public void actionPerformed(ActionEvent ae) {
-         Button button = (Button)ae.getSource();
+        
+        if (ae.getSource() instanceof Button){
+        Button button = (Button)ae.getSource();
          button.display(game.getCurrentNumber());
-         System.out.println("click");
+         if (game.checkWin() == true){
+             System.out.println("You Won");
+         }
+         
+    }
+        if (ae.getSource() instanceof NumberPadButton){
+        NumberPadButton button = (NumberPadButton)ae.getSource();
+         game.currentNumber = button.numberPadNumber;
+         System.out.println(Integer.toString(game.currentNumber));
+    }
     }
     
 }

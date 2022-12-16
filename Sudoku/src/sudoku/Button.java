@@ -16,6 +16,7 @@ import javax.swing.JButton;
  * @author a.ballagan
  */
 public class Button extends JButton{
+    boolean initialValue;
     boolean showNumber;
     int actualNumber;
     int displayNumber;
@@ -30,16 +31,30 @@ public class Button extends JButton{
        Font font = new Font(Font.SANS_SERIF, Font.BOLD, 48);
        this.setFont(font);
        showNumber = false;
+       initialValue = false;
        actualNumber = 0;
        displayNumber = 0;
        
        
     }
     
+    public void showInitialValues() {
+        if (showNumber == true){
+            initialValue = true;
+            displayNumber = actualNumber;
+            this.setText(Integer.toString(actualNumber));
+    }
+        
+    }
+    
     public void display(int currentNumber) {
-        displayNumber = currentNumber;
-        //if (showNumber == true){
-            this.setText(Integer.toString(displayNumber));
+        showNumber = true;
+        
+        if (initialValue == false){
+            displayNumber = currentNumber;
+        }
+        
+        this.setText(Integer.toString(displayNumber));
        //             }
     }
 }
