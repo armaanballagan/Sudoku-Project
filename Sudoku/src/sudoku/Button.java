@@ -17,7 +17,8 @@ import javax.swing.JButton;
  */
 public class Button extends JButton{
     boolean showNumber;
-    int number;
+    int actualNumber;
+    int displayNumber;
             
     public Button() {
         this.setBackground(Color.WHITE);
@@ -28,19 +29,17 @@ public class Button extends JButton{
        
        Font font = new Font(Font.SANS_SERIF, Font.BOLD, 48);
        this.setFont(font);
-       
        showNumber = false;
+       actualNumber = 0;
+       displayNumber = 0;
+       
        
     }
     
-    public void claim(int player) {
-        if (player == Sudoku.X){
-            this.setText("X");
-        } else {
-            this.setText("O");
-        }
-        
-        this.claimed = true;
-        this.owner = player;
+    public void display(int currentNumber) {
+        displayNumber = currentNumber;
+        //if (showNumber == true){
+            this.setText(Integer.toString(displayNumber));
+       //             }
     }
 }

@@ -27,9 +27,8 @@ public class TileClickHandler implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
          Button button = (Button)ae.getSource();
-         
-         
-         game.Move(button);
+         button.display(game.getCurrentNumber());
+         System.out.println("click");
     }
     
 }

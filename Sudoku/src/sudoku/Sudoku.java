@@ -9,7 +9,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
-import javafx.scene.layout.Border;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,12 +20,14 @@ import javax.swing.JPanel;
  */
 public class Sudoku extends JFrame {
     //TicTacToe "is a" JFrame
+    static int numberPadNumber = 9;
     static int Rows = 9;
     static int Cols = 9;
     static Button[][] buttonGrid = new Button[Rows][Cols];
     static int squareRows = 3;
     static int squareCols = 3;
     boolean gameOver;
+    int currentNumber;
     JLabel message;
     JLabel squareMessage;
     static boolean t = true;
@@ -64,8 +65,13 @@ public class Sudoku extends JFrame {
         messagePanel.add(message, BorderLayout.NORTH);
         this.add(messagePanel);
         
-        
-        
+        GridLayout numberPadLayoutManager = new GridLayout(squareRows,squareCols);
+        JPanel numberPadPanel = new JPanel(numberPadLayoutManager);
+        for(int n = 1; n <= numberPadNumber; n++){
+            //NumberPadButton b = new NumberPadButton(n);
+            TileClickHandler tch = new TileClickHandler(this);
+            //b.addActionListener(tch);
+        }
         
         
         GridLayout sudokuBoardLayoutManager = new GridLayout(squareRows,squareCols);
@@ -83,61 +89,37 @@ public class Sudoku extends JFrame {
             squareMessage.setFont(new Font(Font.SERIF, Font.ITALIC, 36));
             squarePanel.add(squareMessage);
             */
-            
-            
             for (int i = 0; i < squareRows; i++){
                 for(int j = 0; j < squareCols; j++){
                     Button b = new Button();
                     int rowNum = r*3 + i;
                     int colNum = c*3 + j;
-                    b.number = allValues[rowNum][colNum];
+                    b.actualNumber = allValues[rowNum][colNum];
                     b.showNumber = givenValues[rowNum][colNum];
                     TileClickHandler tch = new TileClickHandler(this);
                     b.addActionListener(tch);
                     buttonGrid[rowNum][colNum] = b;
                     squarePanel.add(b);
+                }
             }
-        }
             sudokuBoardPanel.add(squarePanel);
-            
             }
-                
         }
-        
-        /*buttonGrid = new Button[Rows][Cols];
-        
-        for 
-        
-        
-       
-        this.add(buttonPanel, BorderLayout.SOUTH ); */
-        this.add(sudokuBoardPanel, BorderLayout.SOUTH);
+        this.add(sudokuBoardPanel, BorderLayout.WEST);
+        this.add(numberPadPanel, BorderLayout.EAST);
         this.pack();
         gameOver = false;
     }
 
-/*    
-    public void Move(Button tile){
-        if (!tile.claimed && !gameOver) {
-            tile.claim(currentPlayer);           
-            
-            int winner = checkWin();
-            System.out.println(winner);
-            if (winner != -1) {
-                gameOver = true;
-                System.out.println(gameOver);
-        
-                if (winner == X){
-                message.setText("X Won!");
-                } else {
-                message.setText("O Won!");
+    
+    public int getCurrentNumber(){
+        currentNumber = 99;
+        return currentNumber;
             }
-        }
-        }
-    }
+        
 
         
-    
+    /*
     public int checkWin() {
         int winner = -1;
         //horizontal wins. Check each row for 3 of the same thing
@@ -198,17 +180,17 @@ public class Sudoku extends JFrame {
     public static void main(String[] args) {
         // TODO code application logic here
         Sudoku game = new Sudoku();
-        for (int r=0; r < Rows; r++) {
+        /*for (int r=0; r < Rows; r++) {
             for (int c=0; c< Cols; c++) {
                 
             if (buttonGrid[r][c].showNumber == true) {
-                        System.out.print(buttonGrid[r][c].number);
+                        System.out.print(buttonGrid[r][c].actualNumber);
             } else{
                     System.out.print(" ");
                     }
             }
             System.out.println();
-        }
+        }*/
         
     }
     
