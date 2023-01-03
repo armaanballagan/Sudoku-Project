@@ -51,6 +51,15 @@ public class Sudoku extends JFrame {
                                 {t,f,f,f,f,f,t,t,t},
                                 {f,f,f,f,t,f,f,f,f},
                                 {f,f,t,f,f,t,t,t,f}};
+    static boolean[][] givenValuestest =  {{t,t,t,t,t,t,f,t,t},
+                                {t,t,t,t,t,t,t,t,t},
+                                {t,t,t,t,t,t,t,t,t},
+                                {t,t,t,t,t,t,t,t,t},
+                                {t,t,t,t,t,t,t,t,t},
+                                {t,t,t,t,t,t,t,t,t},
+                                {t,t,t,t,t,t,t,t,t},
+                                {t,t,t,t,t,t,t,t,t},
+                                {t,t,t,t,t,t,t,t,t}};
     public Sudoku() {
         //current values grid = given values grid?
     
@@ -98,7 +107,7 @@ public class Sudoku extends JFrame {
                     int rowNum = r*3 + i;
                     int colNum = c*3 + j;
                     b.actualNumber = actualValues[rowNum][colNum];
-                    b.showNumber = givenValues[rowNum][colNum];
+                    b.isInitialValue = givenValuestest[rowNum][colNum]; //remove "test"
                     b.showInitialValues();
                     TileClickHandler tch = new TileClickHandler(this);
                     b.addActionListener(tch);
@@ -121,19 +130,16 @@ public class Sudoku extends JFrame {
             }
         
     public boolean checkWin(){
-        boolean gameWin = false;
+        boolean gameWin = true; //true until proven false
          for(int r = 0; r < Rows; r++) {
              for(int c = 0; c < Cols; c++) {
-                if (buttonGrid[r][c].displayNumber == actualValues[r][c]){
-                    
-                }
-                    
+                if (buttonGrid[r][c].displayNumber != actualValues[r][c]){
+                    gameWin = false;
+                    return gameWin;
+                } 
             }
-             
          }
-            
-        
-        
+         
         return gameWin;
     }
         

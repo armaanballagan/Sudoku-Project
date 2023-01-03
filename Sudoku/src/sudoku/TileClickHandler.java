@@ -20,8 +20,6 @@ public class TileClickHandler implements ActionListener {
     
     public TileClickHandler(Sudoku game){
         this.game = game;
-        
-        
     }
     
     @Override
@@ -31,6 +29,7 @@ public class TileClickHandler implements ActionListener {
         Button button = (Button)ae.getSource();
          button.display(game.getCurrentNumber());
          if (game.checkWin() == true){
+             game.gameOver = true;
              System.out.println("You Won");
          }
          

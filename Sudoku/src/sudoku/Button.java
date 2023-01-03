@@ -16,8 +16,7 @@ import javax.swing.JButton;
  * @author a.ballagan
  */
 public class Button extends JButton{
-    boolean initialValue;
-    boolean showNumber;
+    boolean isInitialValue;
     int actualNumber;
     int displayNumber;
             
@@ -28,10 +27,9 @@ public class Button extends JButton{
        Dimension dmnsn = new Dimension(100,100);
        this.setPreferredSize(dmnsn);
        
-       Font font = new Font(Font.SANS_SERIF, Font.BOLD, 48);
+       Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 48);
        this.setFont(font);
-       showNumber = false;
-       initialValue = false;
+       isInitialValue = false;
        actualNumber = 0;
        displayNumber = 0;
        
@@ -39,22 +37,25 @@ public class Button extends JButton{
     }
     
     public void showInitialValues() {
-        if (showNumber == true){
-            initialValue = true;
+        if (isInitialValue == true){ // maybe replace showNumber entirely since it's useless
             displayNumber = actualNumber;
-            this.setText(Integer.toString(actualNumber));
+            
+            Font font = new Font(Font.SANS_SERIF, Font.BOLD, 60);
+            this.setFont(font);
+            
+            this.setText(Integer.toString(displayNumber));
     }
         
     }
     
     public void display(int currentNumber) {
-        showNumber = true;
         
-        if (initialValue == false){
-            displayNumber = currentNumber;
-        }
-        
-        this.setText(Integer.toString(displayNumber));
-       //             }
+        if (currentNumber != 0) {
+            if (isInitialValue == false){
+                displayNumber = currentNumber;
+                this.setText(Integer.toString(displayNumber));
+                
+                }
+            }
     }
 }
