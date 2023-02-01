@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sudoku;
 
 import java.awt.Color;
@@ -12,9 +7,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
 /**
-* This method is used to add two integers. This is
-* a the simplest form of a class method, just to
-* show the usage of various javadoc Tags.
+* creates buttons on the Sudoku board
 
  *
  * @author a.ballagan
@@ -27,15 +20,14 @@ public class Button extends JButton{
     
     
  /**
-* This method is used to add two integers. This is
-* a the simplest form of a class method, just to
-* show the usage of various javadoc Tags.
+* The buttons constructor defines the properties of the buttons as well as 
+* what the buttons on the Sudoku board look like
 */
     public Button() {
         this.setBackground(Color.WHITE);
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         
-       Dimension dmnsn = new Dimension(100,100);
+       Dimension dmnsn = new Dimension(90,90);
        this.setPreferredSize(dmnsn);
        
        Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 48);
@@ -48,10 +40,8 @@ public class Button extends JButton{
     }
     
         /**
-   * checks to see if a button contains a starting value.
-   * @param numA This is the first paramter to addNum method
-   * @param numB  This is the second parameter to addNum method
-   * @return int This returns sum of numA and numB.
+   * Checks to see if a button contains a starting value (given value) on
+   * the Sudoku board.
    */
     public void showInitialValues() {
         if (isInitialValue == true){ // maybe replace showNumber entirely since it's useless
@@ -59,18 +49,17 @@ public class Button extends JButton{
             
             Font font = new Font(Font.SANS_SERIF, Font.BOLD, 60);
             this.setFont(font);
-            
             this.setText(Integer.toString(displayNumber));
+            this.setBackground(Color.decode("#cffff8"));
     }
         
     }
     
         /**
-   * this method is triggered when a button is clicked.
+   * This method is triggered when a button is clicked.
    * If the button wasn't a starting value then it changes the display value
-   * @param numA This is the first paramter to addNum method
-   * @param numB  This is the second parameter to addNum method
-   * @return int This returns sum of numA and numB.
+   * to the value that the user inputs
+   * @param currentNumber this is the number a user tries to input
    */
     public void display(int currentNumber) {
         if (currentNumber != 0) {

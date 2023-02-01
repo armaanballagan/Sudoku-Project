@@ -1,17 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sudoku;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
-* This method is used to add two integers. This is
-* a the simplest form of a class method, just to
-* show the usage of various javadoc Tags.
+* The tile click handler detects when a button is clicked and
+* performs the consequent action
 
  *
  * @author a.ballagan
@@ -22,9 +16,25 @@ public class TileClickHandler implements ActionListener {
     //action should be since there is no default action for that
     Sudoku game;
     
+    /**
+* The tile click handler constructor refrences the Sudoku game
+* it's getting inputs from
+* @param game refrences the specific Sudoku game for which the 
+* handler is detecting inputs
+ */
     public TileClickHandler(Sudoku game){
         this.game = game;
     }
+    
+    
+    /**
+* The actionPerformed method differentiates the input clicks on a button object
+* on the Sudoku board from the clicks on a number pad button. after identifying
+* which class the object clicked belongs to the method then
+* performs the subsequent action
+* @param ae The Action Event paramater is needed so the actionPerformed 
+* method can access properties of the action event class
+* */
     
     @Override
     public void actionPerformed(ActionEvent ae) {
@@ -35,14 +45,13 @@ public class TileClickHandler implements ActionListener {
              if (game.checkWin() == true){
                  game.gameOver = true;
                  game.gameWin(game);
-                 System.out.println("You Won");
                 }
             }
             
             if (ae.getSource() instanceof NumberPadButton){
             NumberPadButton button = (NumberPadButton)ae.getSource();
              game.currentNumber = button.numberPadNumber;
-             System.out.println(Integer.toString(game.currentNumber));
+             
             }
         }
 }

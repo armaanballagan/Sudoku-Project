@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sudoku;
 
 import java.awt.BorderLayout;
@@ -67,12 +62,9 @@ public class Sudoku extends JFrame {
                                 {t,t,t,t,t,t,t,t,t}};
     
     /**
-   * This method is used to add two integers. This is
-   * a the simplest form of a class method, just to
-   * show the usage of various javadoc Tags.
-   * @param numA This is the first paramter to addNum method
-   * @param numB  This is the second parameter to addNum method
-   * @return int This returns sum of numA and numB.
+   * The constructer organizes the sudoku board into panels and also defines
+   * properties of the Sudoku object such as the 
+   * game screen(what the board looks like) and win screen
    */
     
     public Sudoku() {
@@ -93,8 +85,15 @@ public class Sudoku extends JFrame {
         titleMessage.setFont(new Font(Font.SERIF, Font.ITALIC, 60));
         messagePanel.add(titleMessage);
         javax.swing.border.Border titleBorder = BorderFactory.createMatteBorder(0, 0, 5, 0, Color.black); //border
-        messagePanel.setBorder(titleBorder);
+        javax.swing.border.Border padding = BorderFactory.createEmptyBorder(0, 0, 20, 0); //padding
+        javax.swing.border.Border compound = BorderFactory.createCompoundBorder(padding, titleBorder);
+        messagePanel.setBorder(compound);
+        
+        
+        
         this.add(messagePanel, BorderLayout.NORTH);
+        
+        
         
         //win screen
         winMessage = new JLabel("You Win!");
@@ -105,7 +104,7 @@ public class Sudoku extends JFrame {
         
          
        //game screen
-        GridLayout numberPadLayoutManager = new GridLayout(numberPadNumbers,1);
+        GridLayout numberPadLayoutManager = new GridLayout(squareRows,squareCols);
         JPanel numberPadPanel = new JPanel(numberPadLayoutManager);
         numberPadPanel.setBorder(BorderFactory.createEmptyBorder(0, 30, 0, 0)); //padding
         for(int n = 1; n <= numberPadNumbers; n++){
@@ -156,9 +155,8 @@ public class Sudoku extends JFrame {
     }
 
      /**
-   * Returns currentNumber attribute
-   * @param args Unused.
-   * @return Nothing.
+   * Returns currentNumber attribute of a Sudoku object
+   * @return integer. returns a integer value from 1-9
    */
     public int getCurrentNumber(){
         return currentNumber;
@@ -166,14 +164,12 @@ public class Sudoku extends JFrame {
         
      /**
    * Cycles through each button to check if the number
-   * shown matches the actual number at that point. 
+   * shown matches the actual number of the Sudoku board at that point. 
    * Returns true if all shown numbers match the actual numbers.
-   * Returns false if the condition isn't met
-   * @param args Unused.
-   * @return Nothing.
-   * @exception IOException On input error.
-   * @see IOException
+   * Else returns false
+   * @return boolean. returns a true of false value
    */
+    
     public boolean checkWin(){
         boolean gameWin = true; //true until proven false
          for(int r = 0; r < Rows; r++) {
@@ -190,10 +186,7 @@ public class Sudoku extends JFrame {
     
      /**
    * Changes from gameScreen to winScreen
-   * @param args Unused.
-   * @return Nothing.
-   * @exception IOException On input error.
-   * @see IOException
+   * @param game. takes the specific Sudoku game being refrenced as input
    */
     public void gameWin(Sudoku game){
         game.remove(gameScreen);
@@ -205,8 +198,6 @@ public class Sudoku extends JFrame {
     
      /**
    * This is the main method which runs the command to generate a new Sudoku game
-   * @param args Unused.
-   * @return Nothing.
    */
     public static void main(String[] args) {
 
