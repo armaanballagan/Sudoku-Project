@@ -48,9 +48,7 @@ public class Button extends JButton{
     }
     
         /**
-   * This method is used to add two integers. This is
-   * a the simplest form of a class method, just to
-   * show the usage of various javadoc Tags.
+   * checks to see if a button contains a starting value.
    * @param numA This is the first paramter to addNum method
    * @param numB  This is the second parameter to addNum method
    * @return int This returns sum of numA and numB.
@@ -68,9 +66,8 @@ public class Button extends JButton{
     }
     
         /**
-   * This method is used to add two integers. This is
-   * a the simplest form of a class method, just to
-   * show the usage of various javadoc Tags.
+   * this method is triggered when a button is clicked.
+   * If the button wasn't a starting value then it changes the display value
    * @param numA This is the first paramter to addNum method
    * @param numB  This is the second parameter to addNum method
    * @return int This returns sum of numA and numB.
