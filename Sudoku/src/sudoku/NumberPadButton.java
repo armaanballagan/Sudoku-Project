@@ -12,11 +12,21 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
 /**
+* This method is used to add two integers. This is
+* a the simplest form of a class method, just to
+* show the usage of various javadoc Tags.
  *
  * @author balla
  */
 public class NumberPadButton extends JButton{
     int numberPadNumber;
+    
+    /**
+* This method is used to add two integers. This is
+* a the simplest form of a class method, just to
+* show the usage of various javadoc Tags.
+*/
+    
     public NumberPadButton(){
      this.setBackground(Color.WHITE);
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));

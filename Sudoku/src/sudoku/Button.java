@@ -12,14 +12,25 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
 /**
+* This method is used to add two integers. This is
+* a the simplest form of a class method, just to
+* show the usage of various javadoc Tags.
+
  *
  * @author a.ballagan
+ *
  */
 public class Button extends JButton{
     boolean isInitialValue;
     int actualNumber;
     int displayNumber;
-            
+    
+    
+ /**
+* This method is used to add two integers. This is
+* a the simplest form of a class method, just to
+* show the usage of various javadoc Tags.
+*/
     public Button() {
         this.setBackground(Color.WHITE);
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -36,6 +47,14 @@ public class Button extends JButton{
        
     }
     
+        /**
+   * This method is used to add two integers. This is
+   * a the simplest form of a class method, just to
+   * show the usage of various javadoc Tags.
+   * @param numA This is the first paramter to addNum method
+   * @param numB  This is the second parameter to addNum method
+   * @return int This returns sum of numA and numB.
+   */
     public void showInitialValues() {
         if (isInitialValue == true){ // maybe replace showNumber entirely since it's useless
             displayNumber = actualNumber;
@@ -48,8 +67,15 @@ public class Button extends JButton{
         
     }
     
+        /**
+   * This method is used to add two integers. This is
+   * a the simplest form of a class method, just to
+   * show the usage of various javadoc Tags.
+   * @param numA This is the first paramter to addNum method
+   * @param numB  This is the second parameter to addNum method
+   * @return int This returns sum of numA and numB.
+   */
     public void display(int currentNumber) {
-        
         if (currentNumber != 0) {
             if (isInitialValue == false){
                 displayNumber = currentNumber;

@@ -9,6 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
+* This method is used to add two integers. This is
+* a the simplest form of a class method, just to
+* show the usage of various javadoc Tags.
+
  *
  * @author a.ballagan
  */
@@ -25,20 +29,20 @@ public class TileClickHandler implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
         
-        if (ae.getSource() instanceof Button){
-        Button button = (Button)ae.getSource();
-         button.display(game.getCurrentNumber());
-         if (game.checkWin() == true){
-             game.gameOver = true;
-             System.out.println("You Won");
-         }
-         
-    }
-        if (ae.getSource() instanceof NumberPadButton){
-        NumberPadButton button = (NumberPadButton)ae.getSource();
-         game.currentNumber = button.numberPadNumber;
-         System.out.println(Integer.toString(game.currentNumber));
-    }
-    }
-    
+            if (ae.getSource() instanceof Button){
+            Button button = (Button)ae.getSource();
+             button.display(game.getCurrentNumber());
+             if (game.checkWin() == true){
+                 game.gameOver = true;
+                 game.gameWin(game);
+                 System.out.println("You Won");
+                }
+            }
+            
+            if (ae.getSource() instanceof NumberPadButton){
+            NumberPadButton button = (NumberPadButton)ae.getSource();
+             game.currentNumber = button.numberPadNumber;
+             System.out.println(Integer.toString(game.currentNumber));
+            }
+        }
 }

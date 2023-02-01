@@ -16,6 +16,9 @@ import javax.swing.JPanel;
 
 /**
  *
+* <h1>Sudoku!</h1>
+*This Program generates a playable Sudoku Board
+ * 
  * @author a.ballagan
  */
 public class Sudoku extends JFrame {
@@ -28,8 +31,10 @@ public class Sudoku extends JFrame {
     static int squareCols = 3;
     boolean gameOver;
     int currentNumber;
-    JLabel message;
-    JLabel squareMessage;
+    JLabel titleMessage;
+    JLabel winMessage;
+    JPanel gameScreen;
+    JPanel winScreen;
     static boolean t = true;
     static boolean f = false;
     static int[][] actualValues = {{7,5,3,2,8,4,1,6,9},
@@ -60,6 +65,16 @@ public class Sudoku extends JFrame {
                                 {t,t,t,t,t,t,t,t,t},
                                 {t,t,t,t,t,t,t,t,t},
                                 {t,t,t,t,t,t,t,t,t}};
+    
+    /**
+   * This method is used to add two integers. This is
+   * a the simplest form of a class method, just to
+   * show the usage of various javadoc Tags.
+   * @param numA This is the first paramter to addNum method
+   * @param numB  This is the second parameter to addNum method
+   * @return int This returns sum of numA and numB.
+   */
+    
     public Sudoku() {
         //current values grid = given values grid?
     
@@ -68,20 +83,38 @@ public class Sudoku extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
         
+        gameScreen = new JPanel();
+        winScreen = new JPanel();
+        
+        
+        //sudoku title
         JPanel messagePanel = new JPanel();
-        message = new JLabel("Sudoku");
-        message.setFont(new Font(Font.SERIF, Font.ITALIC, 36));
-        messagePanel.add(message);
+        titleMessage = new JLabel("Sudoku");
+        titleMessage.setFont(new Font(Font.SERIF, Font.ITALIC, 60));
+        messagePanel.add(titleMessage);
+        javax.swing.border.Border titleBorder = BorderFactory.createMatteBorder(0, 0, 5, 0, Color.black); //border
+        messagePanel.setBorder(titleBorder);
         this.add(messagePanel, BorderLayout.NORTH);
         
+        //win screen
+        winMessage = new JLabel("You Win!");
+        winMessage.setFont(new Font(Font.SERIF, Font.ITALIC, 300));
+        winScreen.add(winMessage, BorderLayout.SOUTH);
+        winScreen.setBorder(BorderFactory.createEmptyBorder(250, 100, 250, 100)); //padding
+        
+        
+         
+       //game screen
         GridLayout numberPadLayoutManager = new GridLayout(numberPadNumbers,1);
         JPanel numberPadPanel = new JPanel(numberPadLayoutManager);
+        numberPadPanel.setBorder(BorderFactory.createEmptyBorder(0, 30, 0, 0)); //padding
         for(int n = 1; n <= numberPadNumbers; n++){
             NumberPadButton b = new NumberPadButton();
             b.numberPadNumber = n;
             b.setText(Integer.toString(b.numberPadNumber));
             TileClickHandler tch = new TileClickHandler(this);
             b.addActionListener(tch);
+            b.setBorder(BorderFactory.createLineBorder(Color.black));
             numberPadPanel.add(b);
         }
         
@@ -93,42 +126,54 @@ public class Sudoku extends JFrame {
         for(int r = 0; r < squareRows; r++) {
             for(int c = 0; c < squareCols; c++) {
             JPanel squarePanel = new JPanel(squareLayoutManager);
+            squarePanel.setBorder(BorderFactory.createLineBorder(Color.black));
             
-            javax.swing.border.Border blackline = BorderFactory.createLineBorder(Color.black);
-            squarePanel.setBorder(blackline);
-            
-            /*squareMessage = new JLabel("hi");
-            squareMessage.setFont(new Font(Font.SERIF, Font.ITALIC, 36));
-            squarePanel.add(squareMessage);
-            */
-            for (int i = 0; i < squareRows; i++){
-                for(int j = 0; j < squareCols; j++){
-                    Button b = new Button();
-                    int rowNum = r*3 + i;
-                    int colNum = c*3 + j;
-                    b.actualNumber = actualValues[rowNum][colNum];
-                    b.isInitialValue = givenValuestest[rowNum][colNum]; //remove "test"
-                    b.showInitialValues();
-                    TileClickHandler tch = new TileClickHandler(this);
-                    b.addActionListener(tch);
-                    buttonGrid[rowNum][colNum] = b;
-                    squarePanel.add(b);
+                for (int i = 0; i < squareRows; i++){
+                    for(int j = 0; j < squareCols; j++){
+                        Button b = new Button();
+                        int rowNum = r*3 + i;
+                        int colNum = c*3 + j;
+                        b.actualNumber = actualValues[rowNum][colNum];
+                        b.isInitialValue = givenValuestest[rowNum][colNum]; //remove "test"
+                        b.showInitialValues();
+                        TileClickHandler tch = new TileClickHandler(this);
+                        b.addActionListener(tch);
+                        buttonGrid[rowNum][colNum] = b;
+                        squarePanel.add(b);
+                    }
                 }
-            }
             sudokuBoardPanel.add(squarePanel);
             }
         }
-        this.add(sudokuBoardPanel, BorderLayout.WEST);
-        this.add(numberPadPanel, BorderLayout.EAST);
+        
+        
+        gameScreen.add(sudokuBoardPanel, BorderLayout.WEST);
+        gameScreen.add(numberPadPanel, BorderLayout.EAST);
+        this.add(gameScreen);
         this.pack();
+        
         gameOver = false;
     }
 
-    
+     /**
+   * Returns currentNumber attribute
+   * @param args Unused.
+   * @return Nothing.
+   */
     public int getCurrentNumber(){
         return currentNumber;
             }
         
+     /**
+   * Cycles through each button to check if the number
+   * shown matches the actual number at that point. 
+   * Returns true if all shown numbers match the actual numbers.
+   * Returns false if the condition isn't met
+   * @param args Unused.
+   * @return Nothing.
+   * @exception IOException On input error.
+   * @see IOException
+   */
     public boolean checkWin(){
         boolean gameWin = true; //true until proven false
          for(int r = 0; r < Rows; r++) {
@@ -139,82 +184,33 @@ public class Sudoku extends JFrame {
                 } 
             }
          }
-         
         return gameWin;
     }
-        
-    /*
-    public int checkWin() {
-        int winner = -1;
-        //horizontal wins. Check each row for 3 of the same thing
-         
-        for(int r = 0; r < Rows; r++) {
-            for(int c = 0; c < Cols; c++) {
-            boolean cond1 = buttonGrid[r][0].owner == buttonGrid[r][1].owner;
-            boolean cond2 = buttonGrid[r][0].owner == buttonGrid[r][2].owner;
-            boolean cond3 = buttonGrid[r][0].owner != -1;
-            if ((cond1) && (cond2) && (cond3)) {
-                winner = buttonGrid[r][0].owner;
-                
-            }
-            
-            
-        }
-                     
-        }
-        
-        
-       // vertical wins
-        for (int c = 0; c < Cols; c++) {
-            boolean cond1 = buttonGrid[0][c].owner == buttonGrid[1][c].owner;
-            boolean cond2 = buttonGrid[0][c].owner == buttonGrid[2][c].owner;
-            boolean cond3 = buttonGrid[0][c].owner != -1;
-            if ((cond1) && (cond2) && (cond3)) {
-                winner = buttonGrid[0][c].owner;
-        }
-                    
-        }
-        
-          
-       //diagonal wins
-       boolean cond1 = buttonGrid[0][0].owner == buttonGrid[1][1].owner;
-       boolean cond2 = buttonGrid[0][0].owner == buttonGrid[2][2].owner;
-       boolean cond3 = buttonGrid[0][0].owner != -1;
-       if (cond1 && cond2 && cond3) {
-           winner = buttonGrid[0][0].owner;
-           
-       }
-        
-       
-       cond1 = buttonGrid[2][0].owner == buttonGrid[1][1].owner;
-       cond2 = buttonGrid[2][0].owner == buttonGrid[0][2].owner;
-       cond3 = buttonGrid[2][0].owner != -1;
-       if (cond1 && cond2 && cond3) {
-           winner = buttonGrid[0][0].owner;
-           
-       }
-       
-       return winner;
-       
-       
-    }
-    */
     
     
+     /**
+   * Changes from gameScreen to winScreen
+   * @param args Unused.
+   * @return Nothing.
+   * @exception IOException On input error.
+   * @see IOException
+   */
+    public void gameWin(Sudoku game){
+        game.remove(gameScreen);
+        game.add(winScreen, BorderLayout.CENTER);
+        game.revalidate();
+        game.repaint();
+     }
+    
+    
+     /**
+   * This is the main method which runs the command to generate a new Sudoku game
+   * @param args Unused.
+   * @return Nothing.
+   */
     public static void main(String[] args) {
-        // TODO code application logic here
+
         Sudoku game = new Sudoku();
-        /*for (int r=0; r < Rows; r++) {
-            for (int c=0; c< Cols; c++) {
-                
-            if (buttonGrid[r][c].showNumber == true) {
-                        System.out.print(buttonGrid[r][c].actualNumber);
-            } else{
-                    System.out.print(" ");
-                    }
-            }
-            System.out.println();
-        }*/
         
     }
     
