@@ -11,7 +11,7 @@ import javax.swing.JButton;
  *
  */
 public class NumberPadButton extends JButton{
-    int numberPadNumber;
+    private int numberPadNumber;
     
     /**
 * The numberpadButton constructor defines what the number pad buttons look like
@@ -19,16 +19,30 @@ public class NumberPadButton extends JButton{
     
     public NumberPadButton(){
      this.setBackground(Color.WHITE);
-        this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        
+       this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
        Dimension dmnsn = new Dimension(90,90);
        this.setPreferredSize(dmnsn);
-       
        Font font = new Font(Font.SANS_SERIF, Font.BOLD, 48);
        this.setFont(font);
        
        numberPadNumber = 0;
     }
 
+    /**
+   * Returns numberPadNumber attribute of a numberPadButton object
+   * @return numberPadNumber. returns an integer value from 1-9
+   */
+    public int getNumberPadNumber(){
+        return numberPadNumber;
+            }
+
+     /**
+   * sets the numberPadNumber attribute of a NumberPadButton
+   * @param num. sets numberPadNumber to an integer value from 1-9
+   */
+    public void setNumberPadNumber(int num){
+        numberPadNumber = num;
+            }
+    
     
 }

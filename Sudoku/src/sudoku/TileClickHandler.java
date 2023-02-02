@@ -17,9 +17,9 @@ public class TileClickHandler implements ActionListener {
     Sudoku game;
     
     /**
-* The tile click handler constructor refrences the Sudoku game
+* The tile click handler constructor references the Sudoku game
 * it's getting inputs from
-* @param game refrences the specific Sudoku game for which the 
+* @param game references the specific Sudoku game for which the 
 * handler is detecting inputs
  */
     public TileClickHandler(Sudoku game){
@@ -32,7 +32,7 @@ public class TileClickHandler implements ActionListener {
 * on the Sudoku board from the clicks on a number pad button. after identifying
 * which class the object clicked belongs to the method then
 * performs the subsequent action
-* @param ae The Action Event paramater is needed so the actionPerformed 
+* @param ae The Action Event parameter is needed so the actionPerformed 
 * method can access properties of the action event class
 * */
     
@@ -50,7 +50,7 @@ public class TileClickHandler implements ActionListener {
             
             if (ae.getSource() instanceof NumberPadButton){
             NumberPadButton button = (NumberPadButton)ae.getSource();
-             game.currentNumber = button.numberPadNumber;
+             game.setCurrentNumber(button.getNumberPadNumber());
              
             }
         }

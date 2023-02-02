@@ -18,21 +18,21 @@ import javax.swing.JPanel;
  */
 public class Sudoku extends JFrame {
     //TicTacToe "is a" JFrame
-    static int numberPadNumbers = 9;
-    static int Rows = 9;
-    static int Cols = 9;
-    static Button[][] buttonGrid = new Button[Rows][Cols];
-    static int squareRows = 3;
-    static int squareCols = 3;
+    private static int numberPadNumbers = 9;
+    private static int Rows = 9;
+    private static int Cols = 9;
+    private static Button[][] buttonGrid = new Button[Rows][Cols];
+    private static int squareRows = 3;
+    private static int squareCols = 3;
+    private int currentNumber;
     boolean gameOver;
-    int currentNumber;
     JLabel titleMessage;
     JLabel winMessage;
     JPanel gameScreen;
     JPanel winScreen;
-    static boolean t = true;
-    static boolean f = false;
-    static int[][] actualValues = {{7,5,3,2,8,4,1,6,9},
+    private static boolean t = true;
+    private static boolean f = false;
+    private static int[][] actualValues = {{7,5,3,2,8,4,1,6,9},
                                 {2,1,8,3,9,6,7,5,4},
                                 {4,9,6,1,5,7,8,2,3},
                                 {6,4,9,8,3,1,2,7,5},
@@ -62,7 +62,7 @@ public class Sudoku extends JFrame {
                                 {t,t,t,t,t,t,t,t,t}};
     
     /**
-   * The constructer organizes the sudoku board into panels and also defines
+   * The Sudoku constructer organizes the Sudoku board into panels and also defines
    * properties of the Sudoku object such as the 
    * game screen(what the board looks like) and win screen
    */
@@ -76,8 +76,7 @@ public class Sudoku extends JFrame {
         this.setVisible(true);
         
         gameScreen = new JPanel();
-        winScreen = new JPanel();
-        
+        winScreen = new JPanel();        
         
         //sudoku title
         JPanel messagePanel = new JPanel();
@@ -88,20 +87,14 @@ public class Sudoku extends JFrame {
         javax.swing.border.Border padding = BorderFactory.createEmptyBorder(0, 0, 20, 0); //padding
         javax.swing.border.Border compound = BorderFactory.createCompoundBorder(padding, titleBorder);
         messagePanel.setBorder(compound);
-        
-        
-        
         this.add(messagePanel, BorderLayout.NORTH);
-        
-        
+
         
         //win screen
         winMessage = new JLabel("You Win!");
         winMessage.setFont(new Font(Font.SERIF, Font.ITALIC, 300));
         winScreen.add(winMessage, BorderLayout.SOUTH);
         winScreen.setBorder(BorderFactory.createEmptyBorder(250, 100, 250, 100)); //padding
-        
-        
          
        //game screen
         GridLayout numberPadLayoutManager = new GridLayout(squareRows,squareCols);
@@ -109,14 +102,13 @@ public class Sudoku extends JFrame {
         numberPadPanel.setBorder(BorderFactory.createEmptyBorder(0, 30, 0, 0)); //padding
         for(int n = 1; n <= numberPadNumbers; n++){
             NumberPadButton b = new NumberPadButton();
-            b.numberPadNumber = n;
-            b.setText(Integer.toString(b.numberPadNumber));
+            b.setNumberPadNumber(n);
+            b.setText(Integer.toString(b.getNumberPadNumber()));
             TileClickHandler tch = new TileClickHandler(this);
             b.addActionListener(tch);
             b.setBorder(BorderFactory.createLineBorder(Color.black));
             numberPadPanel.add(b);
         }
-        
         
         GridLayout sudokuBoardLayoutManager = new GridLayout(squareRows,squareCols);
         JPanel sudokuBoardPanel = new JPanel(sudokuBoardLayoutManager);
@@ -132,8 +124,8 @@ public class Sudoku extends JFrame {
                         Button b = new Button();
                         int rowNum = r*3 + i;
                         int colNum = c*3 + j;
-                        b.actualNumber = actualValues[rowNum][colNum];
-                        b.isInitialValue = givenValuestest[rowNum][colNum]; //remove "test"
+                        b.setActualNumber(actualValues[rowNum][colNum]);
+                        b.isInitialValue = givenValues[rowNum][colNum]; //remove "test"
                         b.showInitialValues();
                         TileClickHandler tch = new TileClickHandler(this);
                         b.addActionListener(tch);
@@ -150,7 +142,6 @@ public class Sudoku extends JFrame {
         gameScreen.add(numberPadPanel, BorderLayout.EAST);
         this.add(gameScreen);
         this.pack();
-        
         gameOver = false;
     }
 
@@ -161,7 +152,15 @@ public class Sudoku extends JFrame {
     public int getCurrentNumber(){
         return currentNumber;
             }
-        
+    
+    /**
+   * sets currentNumber attribute of a Sudoku object
+   * @param num. sets currentNumber to an integer value from 1-9
+   */
+    public void setCurrentNumber(int num){
+        currentNumber = num;
+            }
+    
      /**
    * Cycles through each button to check if the number
    * shown matches the actual number of the Sudoku board at that point. 
@@ -186,7 +185,7 @@ public class Sudoku extends JFrame {
     
      /**
    * Changes from gameScreen to winScreen
-   * @param game. takes the specific Sudoku game being refrenced as input
+   * @param game. takes the specific Sudoku game being referenced as input
    */
     public void gameWin(Sudoku game){
         game.remove(gameScreen);

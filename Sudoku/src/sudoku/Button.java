@@ -14,8 +14,8 @@ import javax.swing.JButton;
  *
  */
 public class Button extends JButton{
+    private int actualNumber;
     boolean isInitialValue;
-    int actualNumber;
     int displayNumber;
     
     
@@ -70,4 +70,23 @@ public class Button extends JButton{
                 }
             }
     }
+    
+    /**
+   * Returns actualNumber attribute of a button object
+   * @return actualNumber. returns a integer value from 1-9
+   */
+    public int getActualNumber(){
+        return actualNumber;
+            }
+    
+    /**
+   * sets actualNumber attribute of a button object
+   * @param num. sets actualNumber to an integer value from 1-9
+   */
+    public void setActualNumber(int num){
+        actualNumber = num;
+            }
+    
+    
+    
 }
