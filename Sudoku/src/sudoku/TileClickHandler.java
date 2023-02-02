@@ -42,6 +42,7 @@ public class TileClickHandler implements ActionListener {
             if (ae.getSource() instanceof Button){
             Button button = (Button)ae.getSource();
              button.display(game.getCurrentNumber());
+             System.out.println(game.getCurrentNumber());
              if (game.checkWin() == true){
                  game.gameOver = true;
                  game.gameWin(game);
@@ -51,7 +52,7 @@ public class TileClickHandler implements ActionListener {
             if (ae.getSource() instanceof NumberPadButton){
             NumberPadButton button = (NumberPadButton)ae.getSource();
              game.setCurrentNumber(button.getNumberPadNumber());
-             
+             System.out.println(button.getNumberPadNumber());
             }
         }
 }

@@ -2,6 +2,7 @@ package sudoku;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.BorderFactory;
@@ -97,22 +98,39 @@ public class Sudoku extends JFrame {
         winScreen.setBorder(BorderFactory.createEmptyBorder(250, 100, 250, 100)); //padding
          
        //game screen
+       TileClickHandler tch = new TileClickHandler(this); //tile click handler
+        //numberpad
         GridLayout numberPadLayoutManager = new GridLayout(squareRows,squareCols);
-        JPanel numberPadPanel = new JPanel(numberPadLayoutManager);
-        numberPadPanel.setBorder(BorderFactory.createEmptyBorder(0, 30, 0, 0)); //padding
+        JPanel numberPad = new JPanel(numberPadLayoutManager);
         for(int n = 1; n <= numberPadNumbers; n++){
             NumberPadButton b = new NumberPadButton();
             b.setNumberPadNumber(n);
             b.setText(Integer.toString(b.getNumberPadNumber()));
-            TileClickHandler tch = new TileClickHandler(this);
             b.addActionListener(tch);
             b.setBorder(BorderFactory.createLineBorder(Color.black));
-            numberPadPanel.add(b);
+            numberPad.add(b);
         }
+         //delete button
+         JPanel deletePanel = new JPanel();
+        NumberPadButton deleteButton = new NumberPadButton();
+        deleteButton.setNumberPadNumber(0);
+        deleteButton.addActionListener(tch);
+        deleteButton.setText("Delete");
+        Dimension dmnsn = new Dimension(270,90);
+        deleteButton.setPreferredSize(dmnsn);
+        deleteButton.setBorder(BorderFactory.createLineBorder(Color.black));
+        deletePanel.add(deleteButton);
+        deletePanel.setPreferredSize(dmnsn);
+        
+        //Number Pad Panel
+        JPanel numberPadPanel = new JPanel(numberPadLayoutManager);
+        numberPadPanel.add(numberPad);
+        numberPadPanel.add(deletePanel);
+        numberPadPanel.setBorder(BorderFactory.createEmptyBorder(200, 30, 0, 0)); //padding
+        
         
         GridLayout sudokuBoardLayoutManager = new GridLayout(squareRows,squareCols);
         JPanel sudokuBoardPanel = new JPanel(sudokuBoardLayoutManager);
-        
         GridLayout squareLayoutManager = new GridLayout(squareRows,squareCols);
         for(int r = 0; r < squareRows; r++) {
             for(int c = 0; c < squareCols; c++) {
@@ -125,9 +143,8 @@ public class Sudoku extends JFrame {
                         int rowNum = r*3 + i;
                         int colNum = c*3 + j;
                         b.setActualNumber(actualValues[rowNum][colNum]);
-                        b.isInitialValue = givenValues[rowNum][colNum]; //remove "test"
+                        b.isInitialValue = givenValuestest[rowNum][colNum]; //remove "test"
                         b.showInitialValues();
-                        TileClickHandler tch = new TileClickHandler(this);
                         b.addActionListener(tch);
                         buttonGrid[rowNum][colNum] = b;
                         squarePanel.add(b);
@@ -138,7 +155,7 @@ public class Sudoku extends JFrame {
         }
         
         
-        gameScreen.add(sudokuBoardPanel, BorderLayout.WEST);
+        gameScreen.add(sudokuBoardPanel, BorderLayout.CENTER); //change to west
         gameScreen.add(numberPadPanel, BorderLayout.EAST);
         this.add(gameScreen);
         this.pack();

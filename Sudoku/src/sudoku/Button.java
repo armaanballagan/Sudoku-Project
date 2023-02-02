@@ -62,13 +62,15 @@ public class Button extends JButton{
    * @param currentNumber this is the number a user tries to input
    */
     public void display(int currentNumber) {
-        if (currentNumber != 0) {
-            if (isInitialValue == false){
-                displayNumber = currentNumber;
-                this.setText(Integer.toString(displayNumber));
-                
-                }
+        if (isInitialValue == false){
+            displayNumber = currentNumber;
+            
+            if (currentNumber == 0) {
+                this.setText("");
+            }else {
+                    this.setText(Integer.toString(displayNumber));
             }
+        }
     }
     
     /**
